@@ -12,8 +12,12 @@ import CircleRating from "../../../components/circleRating/CircleRating";
 import Img from "../../../components/lazyloadImage/Img.jsx";
 import PosterFallback from "../../../assets/no-poster.png";
 import { PlayIcon } from "../Playbtn";
+import VideoPopup from "../../../components/videoPopup/VideoPopup";
 
 const DetailsBanner = ({ video, crew }) => {
+    console.log(video)
+    const [show,setShow]  = useState(false)
+    const [videoId, setVideoId] = useState(null)
 
     const {mediaType, id} = useParams()
     const {data,loading} = useFetch(`/${mediaType}/${id}`)
@@ -75,7 +79,10 @@ const DetailsBanner = ({ video, crew }) => {
                                                 <CircleRating
                                                     rating={data.vote_average.toFixed(1)}
                                                 />
-                                                <div className="playbtn" onClick={() => {}}>
+                                                <div className="playbtn" onClick={() => {
+                                                    setShow(true)
+                                                    setVideoId(video[0].key)
+                                                }}>
                                                     <PlayIcon />
                                                     <span className="text">
                                                         Watch Trailer
@@ -175,6 +182,12 @@ const DetailsBanner = ({ video, crew }) => {
                                             )}
                                         </div>
                                     </div>
+                                    <VideoPopup 
+                                        show={show}
+                                        setShow={setShow}
+                                        videoId={videoId}
+                                        setVideoId={setVideoId}
+                                    />
                                 </ContentWrapper>
                             </div>
                         </React.Fragment>

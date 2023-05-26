@@ -20,6 +20,7 @@ function App() {
     generesCall()
   },[])
 
+
   const fetchApiConfig = () => {
     fetchDataFromApi('/configuration')
       .then((res) => {
